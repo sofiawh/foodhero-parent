@@ -1,0 +1,43 @@
+# Indique le nom de l'application
+#spring.application.name=eureka-service
+
+# Indique le profil actif (par exemple, dev, prod, etc.)
+#spring.profiles.active=dev
+
+# Indique l'URL du service de configuration (config-service)
+#spring.cloud.config.uri=http://localhost:8888
+#spring.config.import=configserver:http://localhost:8888
+# Indique le nom du fichier de configuration spécifique pour le service eureka-service
+#spring.cloud.config.name=eureka-service
+
+# Indique le label pour la version des configurations (par exemple, branch ou tag dans Git)
+#spring.cloud.config.label=main
+
+
+
+# Indique que c'est un serveur Eureka
+#eureka.client.register-with-eureka=false
+#eureka.client.fetch-registry=false
+#  # Port par défaut pour le serveur Eureka
+#server.port=8761
+#spring.application.name=eureka-service
+#
+#eureka:
+#  instance:
+#    hostname: localhost
+#  client:
+#    register-with-eureka: false
+#    fetch-registry: false
+#spring:
+#  application:
+#    name: eureka-service
+#  config:
+#    import: optional:configserver:http//localhost:8888
+#server:
+#  port: 8761
+spring:
+  config:
+   import: optional:configserver:http//localhost:8888
+  application:
+    name: eureka
+debug: true

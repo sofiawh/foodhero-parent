@@ -1,0 +1,15 @@
+keycloak:
+  auth-server-url: http://localhost:8080/auth
+  realm: your-realm
+  resource: your-client-id
+  public-client: true
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/your-database
+    username: your-username
+    password: your-password
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
