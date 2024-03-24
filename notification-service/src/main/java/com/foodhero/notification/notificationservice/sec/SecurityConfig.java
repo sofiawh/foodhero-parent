@@ -14,9 +14,9 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Arrays;
 
-@Configuration
-@EnableWebSecurity
-@EnableMethodSecurity(prePostEnabled = true)
+//@Configuration
+//@EnableWebSecurity
+//@EnableMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
 
     private final JwtAuthConverter jwtAuthConverter;
@@ -25,7 +25,7 @@ public class SecurityConfig {
         this.jwtAuthConverter = jwtAuthConverter;
     }
 
-    @Bean
+    //@Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
                 .cors(Customizer.withDefaults())
@@ -38,7 +38,7 @@ public class SecurityConfig {
                 .build();
     }
 
-    @Bean
+   // @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(Arrays.asList("*"));

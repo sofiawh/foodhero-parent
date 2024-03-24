@@ -1,4 +1,4 @@
-package com.foodhero.merchant.merchantservice;
+package com.foodhero.enrollment;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -6,10 +6,10 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @EnableFeignClients
 @SpringBootApplication
-public class MerchantServiceApplication {
+public class EnrollmentApplication {
 
-    public static void main(String[] args) {
-        SpringApplication.run(MerchantServiceApplication.class, args);
-    }
+	public static void main(String[] args) {
+		SpringApplication.run(EnrollmentApplication.class, args);
+	}
 
 }

@@ -16,6 +16,20 @@ spring:
           uri: http://localhost:9191
           predicates:
             - Path=/api/v1/notification/**
+        - id: user
+          uri: http://localhost:9192
+          predicates:
+            - Path=/api/v1/users/**
+        - id: commercant
+          uri: http://localhost:9193
+          predicates:
+            - Path=/api/v1/commercants/**
+        - id: enrollment
+          uri: http://localhost:8071
+          predicates:
+            - Path=/api/v1/enrollments/**
+
+
 
 management:
   tracing:
