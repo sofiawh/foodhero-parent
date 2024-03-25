@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v1/utilisateurs/preferencealim")
+@RequestMapping("/api/v1/users/preferencealim")
 public class PreferenceAlimentaireController {
 
     @Autowired

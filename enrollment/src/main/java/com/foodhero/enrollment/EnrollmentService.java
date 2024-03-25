@@ -36,6 +36,17 @@ public class EnrollmentService {
 
         return enrolledUserIds;
     }
+
+    public List<Long> findEnrolledCommercantsByUserId(Long userId) {
+        List<Long> enrolledCommercantIds = new ArrayList<>();
+        List<Enrollment> enrollments = repository.findAllByUserId(userId);
+
+        for (Enrollment enrollment : enrollments) {
+            enrolledCommercantIds.add(enrollment.getCommercantId());
+        }
+
+        return enrolledCommercantIds;
+    }
 //    public FullSchoolResponse findSchWithStudents(Integer schoolId) {
 //        var school = repository.findById(schoolId)
 //                .orElse(

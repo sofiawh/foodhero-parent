@@ -39,6 +39,11 @@ public class EnrollmentController {
         List<Long> enrolledUserIds = service.findEnrolledUsersByCommercantId(commercantId);
         return ResponseEntity.ok(enrolledUserIds);
     }
+    @GetMapping("/users/{userId}/commercants")
+    public ResponseEntity<List<Long>> getEnrolledCommercantsByUserId(@PathVariable Long userId) {
+        List<Long> enrolledCommercantIds = service.findEnrolledCommercantsByUserId(userId);
+        return ResponseEntity.ok(enrolledCommercantIds);
+    }
     @GetMapping
     public ResponseEntity<List<Enrollment>> getEnrollments() {
         List<Enrollment> enrolleds = service.findAllEnrollments();

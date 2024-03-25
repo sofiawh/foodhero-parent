@@ -20,3 +20,7 @@ spring:
     show-sql: true
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
+application:
+  config:
+    enrollments-url: http://localhost:8222/api/v1/enrollments
+    commercants-url: http://localhost:8222/api/v1/commercants
