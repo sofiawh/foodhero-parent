@@ -5,6 +5,7 @@ package com.foodhero.enrollment;
 
 import com.foodhero.enrollment.client.CommercantFeignClient;
 import com.foodhero.enrollment.client.UserFeignClient;
+import com.foodhero.enrollment.exceptions.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -47,6 +48,23 @@ public class EnrollmentService {
 
         return enrolledCommercantIds;
     }
+
+    public void deleteEnrollment(Long enrollmentId) {
+        repository.deleteById(enrollmentId);
+    }
+
+    public Enrollment updateEnrollment(Long enrollmentId, Enrollment updatedEnrollment) {
+        Enrollment existingEnrollment = repository.findById(enrollmentId)
+                .orElseThrow(() -> new NotFoundException("Enrollment non trouvé avec l'ID : " + enrollmentId));
+
+        // Mettez à jour les attributs de l'enrollment existant avec les données de l'enrollment mis à jour
+        existingEnrollment.setUserId(updatedEnrollment.getUserId());
+        existingEnrollment.setCommercantId(updatedEnrollment.getCommercantId());
+
+        return repository.save(existingEnrollment);
+    }
+
+
 //    public FullSchoolResponse findSchWithStudents(Integer schoolId) {
 //        var school = repository.findById(schoolId)
 //                .orElse(

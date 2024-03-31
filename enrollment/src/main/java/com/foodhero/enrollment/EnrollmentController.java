@@ -27,7 +27,7 @@ public class EnrollmentController {
 
     @PostMapping
     public ResponseEntity<Enrollment> enrollUser(@RequestBody Enrollment enrollment) {
-        // Validate student and course existence
+        // Validate user and commercant existence
         if (isValidUser(enrollment.getUserId()) && isValidCommercant(enrollment.getCommercantId())) {
             return ResponseEntity.ok(service.saveEnrollment(enrollment));
         }
@@ -48,6 +48,18 @@ public class EnrollmentController {
     public ResponseEntity<List<Enrollment>> getEnrollments() {
         List<Enrollment> enrolleds = service.findAllEnrollments();
         return ResponseEntity.ok(enrolleds);
+    }
+
+    @PutMapping("/{enrollmentId}")
+    public ResponseEntity<Enrollment> updateEnrollment(@PathVariable Long enrollmentId, @RequestBody Enrollment updatedEnrollment) {
+        Enrollment enrollment = service.updateEnrollment(enrollmentId, updatedEnrollment);
+        return ResponseEntity.ok(enrollment);
+    }
+
+    @DeleteMapping("/{enrollmentId}")
+    public ResponseEntity<Void> deleteEnrollment(@PathVariable Long enrollmentId) {
+        service.deleteEnrollment(enrollmentId);
+        return ResponseEntity.noContent().build();
     }
     private boolean isValidUser(Long userId) {
         ResponseEntity<User> response = userFeignClient.getUserById(userId);

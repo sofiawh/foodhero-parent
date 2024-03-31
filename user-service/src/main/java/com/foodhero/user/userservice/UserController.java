@@ -41,7 +41,11 @@ public class UserController {
         UserEntity user = userService.getUserById(idUser);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
-
+    @GetMapping
+    public ResponseEntity<List<UserDTO>> getAllUsers(){
+        List<UserDTO> users = userService.getAllUsers();
+        return new ResponseEntity<>(users,HttpStatus.OK);
+    }
     @GetMapping("/{userId}/commercants")
     public ResponseEntity<List<Commercant>> getUserCommercants(@PathVariable Long userId) {
         ResponseEntity<List<Long>> enrolledCommercantsResponse = enrollmentFeignClient.getEnrolledCommercantsByUserId(userId);
@@ -66,7 +70,18 @@ public class UserController {
 
 
     }
+    @PutMapping("/{idUser}")
+    public ResponseEntity<UserDTO> updateUser(@PathVariable Long idUser, @RequestBody UserDTO userDTO) {
+        UserDTO updatedUser = userService.updateUser(idUser, userDTO);
+        return ResponseEntity.ok(updatedUser);
+    }
 
-    // Autres endpoints du contrôleur...
+    @DeleteMapping("/{idUser}")
+    public ResponseEntity<Void> deleteUser(@PathVariable Long idUser) {
+        userService.deleteUser(idUser);
+        return ResponseEntity.noContent().build();
+    }
+
+
 }
 

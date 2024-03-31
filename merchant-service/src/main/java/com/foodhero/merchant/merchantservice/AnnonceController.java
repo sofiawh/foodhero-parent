@@ -30,6 +30,21 @@ public class AnnonceController {
     public ResponseEntity<List<Annonce>> getAnnonces(){
         return new ResponseEntity<>(annonceService.getAnnonces(),HttpStatus.OK);
     }
-    // Autres endpoints du contrôleur...
+
+
+    @PutMapping("/{idAnnonce}")
+    public ResponseEntity<Annonce> updateAnnonce(@PathVariable Long idAnnonce, @RequestBody Annonce updatedAnnonce) {
+        Annonce annonce = annonceService.updateAnnonce(idAnnonce, updatedAnnonce);
+        return new ResponseEntity<>(annonce, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{idAnnonce}")
+    public ResponseEntity<Void> deleteAnnonce(@PathVariable Long idAnnonce) {
+        annonceService.deleteAnnonce(idAnnonce);
+        return ResponseEntity.noContent().build();
+    }
+
 }
+
+
 

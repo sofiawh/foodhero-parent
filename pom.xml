@@ -24,6 +24,7 @@
 		<!-- Ajoutez ici les noms des autres modules que vous avez créés -->
 		<module>notification-service</module>
 		<module>donation-service</module>
+		<module>association-service</module>
 		<module>rating-service</module>
 		<module>statistics-service</module>
 		<module>survey-service</module>

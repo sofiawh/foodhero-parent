@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CommercantService {
@@ -52,7 +53,29 @@ public class CommercantService {
         return commercantRepository.findById(id).orElse(null);
     }
 
-    // Autres méthodes de service...
+
+    public CommercantDTO updateCommercant(Long idCommercant, CommercantDTO commercantDTO) {
+        Optional<CommercantEntity> optionalCommercant = commercantRepository.findById(idCommercant);
+        if (optionalCommercant.isPresent()) {
+            CommercantEntity existingCommercant = optionalCommercant.get();
+            existingCommercant.setNomCommerce(commercantDTO.getNomCommerce());
+            existingCommercant.setDescription(commercantDTO.getDescription());
+            existingCommercant.setAdresse(commercantDTO.getAdresse());
+
+            CommercantEntity updatedCommercant = commercantRepository.save(existingCommercant);
+            return convertToDTO(updatedCommercant);
+        } else {
+            throw new NotFoundException("Commerçant non trouvé avec l'ID : " + idCommercant);
+        }
+    }
+
+    public void deleteCommercant(Long idCommercant) {
+        if (commercantRepository.existsById(idCommercant)) {
+            commercantRepository.deleteById(idCommercant);
+        } else {
+            throw new NotFoundException("Commerçant non trouvé avec l'ID : " + idCommercant);
+        }
+    }
 
     private CommercantDTO convertToDTO(CommercantEntity commercantEntity) {
         CommercantDTO commercantDTO = new CommercantDTO();

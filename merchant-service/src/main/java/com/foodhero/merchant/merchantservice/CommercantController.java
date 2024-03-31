@@ -30,12 +30,6 @@ public class CommercantController {
         return new ResponseEntity<>(createdCommercant, HttpStatus.CREATED);
     }
 
-//    @GetMapping("/{idCommercant}")
-//    public ResponseEntity<CommercantDTO> getCommercantById(@PathVariable Long idCommercant) {
-//        CommercantDTO commercant = commercantService.getCommercantById(idCommercant);
-//        return new ResponseEntity<>(commercant, HttpStatus.OK);
-//    }
-
     @GetMapping
     public ResponseEntity<List<CommercantDTO>> getCommercants() {
 
@@ -61,7 +55,7 @@ public class CommercantController {
         }
 
         List<Long> userIds = enrolledUsersResponse.getBody();
-        // Liste pour stocker les détails des étudiants
+        // Liste pour stocker les détails des users
         List<User> users = new ArrayList<>();
 
         for (Long userId : userIds) {
@@ -74,7 +68,18 @@ public class CommercantController {
 
         return ResponseEntity.ok(users);
 
+    }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<CommercantDTO> updateCommercant(@PathVariable Long id, @RequestBody CommercantDTO commercantDTO) {
+        CommercantDTO updatedCommercant = commercantService.updateCommercant(id, commercantDTO);
+        return ResponseEntity.ok(updatedCommercant);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteCommercant(@PathVariable Long id) {
+        commercantService.deleteCommercant(id);
+        return ResponseEntity.noContent().build();
     }
 
 //    @GetMapping("/{commercantId}/users")

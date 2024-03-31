@@ -13,13 +13,6 @@ public class AnnonceService {
     private AnnonceRepository annonceRepository;
 
     public Annonce createAnnonce(Annonce annonce) {
-        // Logique pour créer un nouvel utilisateur dans la base de données
-//        UserEntity userEntity = new UserEntity();
-//        userEntity.setNom(userDTO.getNom());
-//        userEntity.setPrenom(userDTO.getPrenom());
-//        userEntity.setEmail(userDTO.getEmail());
-        // ... Autres attributs
-
         Annonce savedAnnonce = annonceRepository.save(annonce);
 
         return savedAnnonce;
@@ -32,20 +25,27 @@ public class AnnonceService {
         return annonce;
     }
     public List<Annonce> getAnnonces(){
+
         return annonceRepository.findAll();
     }
 
-    // Autres méthodes de service...
+    public Annonce updateAnnonce(Long idAnnonce, Annonce updatedAnnonce) {
+        Annonce existingAnnonce = annonceRepository.findById(idAnnonce)
+                .orElseThrow(() -> new NotFoundException("Annonce non trouvée avec l'ID : " + idAnnonce));
 
-//    private UserDTO convertToDTO(UserEntity userEntity) {
-//        UserDTO userDTO = new UserDTO();
-//        userDTO.setId(userEntity.getId());
-//        userDTO.setNom(userEntity.getNom());
-//        userDTO.setPrenom(userEntity.getPrenom());
-//        userDTO.setEmail(userEntity.getEmail());
-//        // ... Autres attributs
-//
-//        return userDTO;
-//    }
+        // Mettez à jour les attributs de l'annonce existante avec les données de l'annonce mise à jour
+        existingAnnonce.setTitre(updatedAnnonce.getTitre());
+        existingAnnonce.setDescription(updatedAnnonce.getDescription());
+
+        return annonceRepository.save(existingAnnonce);
+    }
+
+    public void deleteAnnonce(Long idAnnonce) {
+        if (!annonceRepository.existsById(idAnnonce)) {
+            throw new NotFoundException("Annonce non trouvée avec l'ID : " + idAnnonce);
+        }
+        annonceRepository.deleteById(idAnnonce);
+    }
+
 }
 

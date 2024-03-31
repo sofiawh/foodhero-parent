@@ -28,6 +28,14 @@ spring:
           uri: http://localhost:8071
           predicates:
             - Path=/api/v1/enrollments/**
+        - id: association
+          uri: http://localhost:9195
+          predicates:
+            - Path=/api/v1/associations/**
+        - id: donation
+          uri: http://localhost:9194
+          predicates:
+            - Path=/api/v1/donations/**
 
 
 

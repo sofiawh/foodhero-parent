@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: association
+  config:
+    import: optional:configserver:http://localhost:8888
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080/realms/food-realm
+#  security:
+#    oauth2:
+#      resourceserver:
+#        jwt:
+#          issuer-uri: http://localhost:8080/realms/food-realm
+#          jwk-set-uri: http://localhost:8080/realms/food-realm/protocol/openid-connect/certs
+
+
+
