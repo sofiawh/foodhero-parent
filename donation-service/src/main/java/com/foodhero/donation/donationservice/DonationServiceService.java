@@ -2,6 +2,7 @@ package com.foodhero.donation.donationservice;
 
 import com.foodhero.donation.donationservice.client.AssociationFeignClient;
 import com.foodhero.donation.donationservice.client.UserFeignClient;
+import com.foodhero.donation.donationservice.exceptions.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -55,6 +56,46 @@ public class DonationServiceService {
         repository.delete(donation);
     }
 
+    public List<Donation> findDonationsByUserId(Long userId) {
+        // Récupérer les dons par userID en utilisant la méthode du repository
+        List<Donation> donations = repository.findAllByUserId(userId);
+
+        // Si aucun don n'est trouvé pour l'utilisateur, vous pouvez lancer une exception ou retourner une liste vide selon votre logique métier
+        if (donations == null || donations.isEmpty()) {
+            // Lancez une exception appropriée ou retournez une liste vide
+            throw new NotFoundException("Aucun don trouvé pour l'utilisateur avec l'ID : " + userId);
+        }
+
+        // Retourner la liste des dons récupérés
+        return donations;
+    }
+
+    public List<Donation> findDonationsByAssociationId(Long associationId) {
+        // Récupérer les dons par associationID en utilisant la méthode du repository
+        List<Donation> donations = repository.findAllByAssociationId(associationId);
+
+        // Si aucun don n'est trouvé pour l'utilisateur, vous pouvez lancer une exception ou retourner une liste vide selon votre logique métier
+        if (donations == null || donations.isEmpty()) {
+            // Lancez une exception appropriée ou retournez une liste vide
+            throw new NotFoundException("Aucun don trouvé pour l'association avec l'ID : " + associationId);
+        }
+
+        // Retourner la liste des dons récupérés
+        return donations;
+    }
+
+    public List<Donation> findDonationsByAnnonceId(Long annonceId) {
+        List<Donation> donations = repository.findAllByAnnonceId(annonceId);
+
+        // Si aucun don n'est trouvé pour l'annonce, vous pouvez lancer une exception ou retourner une liste vide selon votre logique métier
+        if (donations == null || donations.isEmpty()) {
+            // Lancez une exception appropriée ou retournez une liste vide
+            throw new NotFoundException("Aucun don trouvé pour l'annonce avec l'ID : " + annonceId);
+        }
+
+        // Retourner la liste des dons récupérés
+        return donations;
+    }
 //    public FullSchoolResponse findSchWithStudents(Integer schoolId) {
 //        var school = repository.findById(schoolId)
 //                .orElse(

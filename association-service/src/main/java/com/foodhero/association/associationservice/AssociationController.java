@@ -3,6 +3,7 @@ package com.foodhero.association.associationservice;
 
 import com.foodhero.association.associationservice.client.DonationFeignClient;
 import com.foodhero.association.associationservice.client.UserFeignClient;
+import com.foodhero.association.associationservice.exceptions.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -76,6 +77,16 @@ public class AssociationController {
 
 
     }
+
+    @GetMapping("/{associationId}/dons")
+    public ResponseEntity<List<Donation>> getDonsByAssociationId(@PathVariable Long associationId) {
+        // Appeler le service de dons pour récupérer les dons par associationID
+        List<Donation> donations = donationFeignClient.getDonsByAssociationId(associationId)
+                .orElseThrow(() -> new NotFoundException("Erreur lors de la récupération des dons pour l'association avec l'ID : " + associationId));
+
+        return ResponseEntity.ok(donations);
+    }
+
 
 //    @GetMapping("/{commercantId}/users")
 //    public ResponseEntity<List<User>> getCommercantUsers(@PathVariable Long commercantId) {

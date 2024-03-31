@@ -1,4 +1,4 @@
-package com.foodhero.association.associationservice;
+package com.foodhero.merchant.merchantservice;
 
 import lombok.*;
 
@@ -10,6 +10,7 @@ import lombok.*;
 @Builder
 public class Donation {
 
+    private Long id;
     private double montant;
     private String typeDon;
     private Long userId;

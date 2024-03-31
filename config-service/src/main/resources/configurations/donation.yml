@@ -24,3 +24,4 @@ application:
   config:
     users-url: http://localhost:8222/api/v1/users
     associations-url: http://localhost:8222/api/v1/associations
+    annonces-url: http://localhost:8222/api/v1/commercants/annonce

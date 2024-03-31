@@ -1,6 +1,7 @@
 package com.foodhero.donation.donationservice;
 
 
+import com.foodhero.donation.donationservice.client.AnnonceFeignClient;
 import com.foodhero.donation.donationservice.client.AssociationFeignClient;
 import com.foodhero.donation.donationservice.client.UserFeignClient;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +26,9 @@ public class DonationController {
     @Autowired
     private UserFeignClient userFeignClient;
 
+    @Autowired
+    private AnnonceFeignClient annonceFeignClient;
+
 
     @PostMapping
     public ResponseEntity<Donation> donationUser(@RequestBody Donation donation) {
@@ -40,6 +44,24 @@ public class DonationController {
         List<Long> donationUserIds = service.findDonationUsersByAssociationId(associationId);
         return ResponseEntity.ok(donationUserIds);
     }
+
+    @GetMapping("/users/{userId}/dons")
+    public ResponseEntity<List<Donation>> getDonsByUserId(@PathVariable Long userId) {
+        List<Donation> donations = service.findDonationsByUserId(userId);
+        return ResponseEntity.ok(donations);
+    }
+    @GetMapping("/annonces/{annonceId}/dons")
+    public ResponseEntity<List<Donation>> getDonsByAnnonceId(@PathVariable Long annonceId) {
+        List<Donation> donations = service.findDonationsByAnnonceId(annonceId);
+        return ResponseEntity.ok(donations);
+    }
+
+    @GetMapping("/associations/{associationId}/dons")
+    public ResponseEntity<List<Donation>> getDonsByAssociationId(@PathVariable Long associationId) {
+        List<Donation> donations = service.findDonationsByAssociationId(associationId);
+        return ResponseEntity.ok(donations);
+    }
+
     @GetMapping("/users/{userId}/associations")
     public ResponseEntity<List<Long>> getdonationAssociationsByUserId(@PathVariable Long userId) {
         List<Long> donationAssociationIds = service.findDonationAssociationsByUserId(userId);

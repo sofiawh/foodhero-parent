@@ -22,5 +22,7 @@ public class Donation {
     private Long userId;
     private Long associationId;
     private String status;// a faire comme enum
+    private Long annonceId;
+
 
 }

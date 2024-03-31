@@ -1,8 +1,11 @@
 package com.foodhero.user.userservice;
 
 
+import com.foodhero.user.userservice.client.AssociationFeignClient;
 import com.foodhero.user.userservice.client.CommercantFeignClient;
+import com.foodhero.user.userservice.client.DonationFeignClient;
 import com.foodhero.user.userservice.client.EnrollmentFeignClient;
+import com.foodhero.user.userservice.exceptions.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,7 +26,11 @@ public class UserController {
     @Autowired
     private EnrollmentFeignClient enrollmentFeignClient;
     @Autowired
+    private DonationFeignClient donationFeignClient;
+    @Autowired
     private CommercantFeignClient commercantFeignClient;
+    @Autowired
+    private AssociationFeignClient associationFeignClient;
 
     @PostMapping
     public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO) {
@@ -55,7 +62,7 @@ public class UserController {
         }
 
         List<Long> commercantIds = enrolledCommercantsResponse.getBody();
-        // Liste pour stocker les détails des étudiants
+        // Liste pour stocker les détails des commercants
         List<Commercant> commercants = new ArrayList<>();
 
         for (Long commercantId : commercantIds) {
@@ -70,6 +77,43 @@ public class UserController {
 
 
     }
+
+    ////////   with  association
+    @GetMapping("/{userId}/associations")
+    public ResponseEntity<List<Association>> getUserAssociations(@PathVariable Long userId) {
+        ResponseEntity<List<Long>> donatedAssociationsResponse = donationFeignClient.getDonatedAssociationsByUserId(userId);
+
+        if (donatedAssociationsResponse.getStatusCode() != HttpStatus.OK || donatedAssociationsResponse.getBody() == null) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+
+        List<Long> associationIds = donatedAssociationsResponse.getBody();
+        // Liste pour stocker les détails des associations
+        List<Association> associations = new ArrayList<>();
+
+        for (Long associationId : associationIds) {
+            ResponseEntity<Association> associationResponse = associationFeignClient.getAssociationById(associationId);
+
+            if (associationResponse.getStatusCode() == HttpStatus.OK && associationResponse.getBody() != null) {
+                associations.add(associationResponse.getBody());
+            }
+        }
+
+        return ResponseEntity.ok(associations);
+
+
+    }
+    @GetMapping("/{userId}/dons")
+    public ResponseEntity<List<Donation>> getDonsByUserId(@PathVariable Long userId) {
+        // Appeler le service de dons pour récupérer les dons par userID
+        List<Donation> donations = donationFeignClient.getDonsByUserId(userId)
+                .orElseThrow(() -> new NotFoundException("Erreur lors de la récupération des dons pour l'utilisateur avec l'ID : " + userId));
+
+        return ResponseEntity.ok(donations);
+    }
+    ////
+
+
     @PutMapping("/{idUser}")
     public ResponseEntity<UserDTO> updateUser(@PathVariable Long idUser, @RequestBody UserDTO userDTO) {
         UserDTO updatedUser = userService.updateUser(idUser, userDTO);
