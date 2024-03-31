@@ -1,7 +1,7 @@
 package com.foodhero.donation.donationservice;
 
 
-import com.foodhero.donation.donationservice.client.AnnonceFeignClient;
+//import com.foodhero.donation.donationservice.client.AnnonceFeignClient;
 import com.foodhero.donation.donationservice.client.AssociationFeignClient;
 import com.foodhero.donation.donationservice.client.UserFeignClient;
 import lombok.RequiredArgsConstructor;
@@ -26,8 +26,8 @@ public class DonationController {
     @Autowired
     private UserFeignClient userFeignClient;
 
-    @Autowired
-    private AnnonceFeignClient annonceFeignClient;
+//    @Autowired
+//    private AnnonceFeignClient annonceFeignClient;
 
 
     @PostMapping
@@ -71,6 +71,11 @@ public class DonationController {
     public ResponseEntity<List<Donation>> getDonations() {
         List<Donation> donations = service.findAllDonations();
         return ResponseEntity.ok(donations);
+    }
+    @GetMapping("/{id}")
+    public ResponseEntity<Donation> getDonationById(@PathVariable Long id) {
+        Donation donation = service.findDonationById(id);
+        return ResponseEntity.ok(donation);
     }
 
     @PutMapping("/{id}")

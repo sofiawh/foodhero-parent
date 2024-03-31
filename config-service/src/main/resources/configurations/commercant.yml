@@ -24,3 +24,4 @@ application:
   config:
     enrollments-url: http://localhost:8222/api/v1/enrollments
     users-url: http://localhost:8222/api/v1/users
+    donations-url: http://localhost:8222/api/v1/donations
