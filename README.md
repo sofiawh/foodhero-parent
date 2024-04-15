@@ -3,7 +3,11 @@
 
 Description du Projet :
 
-Développez une application de lutte contre le gaspillage alimentaire qui connecte les utilisateurs, les commerçants et les associations caritatives. Le backend sera construit en Java (Spring), et le frontend en Angular. L'objectif de cette application est de réduire le gaspillage alimentaire en permettant aux commerçants de partager les excédents alimentaires avec les utilisateurs et les associations caritatives.
+Développez une application de lutte contre le gaspillage alimentaire qui connecte les utilisateurs, les commerçants et les associations caritatives. Le backend sera construit en Java (Spring), et le frontend en Angular. L'objectif de cette application est de réduire le gaspillage alimentaire en permettant aux commerçants de partager les excédents alimentaires avec les utilisateurs et les associations caritatives.  
+
+Outils et Techno de dev:
+Java , springBoot , angular, keycloak, Jenkins, postman, JUnit et Mockito, postGres...
+
 
 Fonctionnalités Principales :
 
