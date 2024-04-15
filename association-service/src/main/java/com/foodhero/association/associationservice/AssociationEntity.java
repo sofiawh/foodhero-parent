@@ -16,9 +16,9 @@ import lombok.NoArgsConstructor;
 public class AssociationEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
+    private /*Long*/String id;
+    private Long idKeyCloak;
     private String nom;
     private String email;
     private String localisation;

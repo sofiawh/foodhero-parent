@@ -9,7 +9,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CommercantDTO {
 
-    private Long id;
+    private /*Long*/String  id;
+   // private Long idKeyCloak;
     private String nomCommerce;
     private String description;
     private String adresse;

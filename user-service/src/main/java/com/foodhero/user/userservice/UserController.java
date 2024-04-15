@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.*;
 
@@ -48,7 +49,20 @@ public class UserController {
         UserEntity user = userService.getUserById(idUser);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
+
+    @GetMapping("/keycloak/{idKeycloak}")
+    public ResponseEntity<UserEntity> getUserByIdKeycloak(@PathVariable Long idKeycloak) {
+        UserEntity user = userService.getUserByIdKeycloak(idKeycloak);
+        if (user != null) {
+            return ResponseEntity.ok(user);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     @GetMapping
+    //@PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<UserDTO>> getAllUsers(){
         List<UserDTO> users = userService.getAllUsers();
         return new ResponseEntity<>(users,HttpStatus.OK);

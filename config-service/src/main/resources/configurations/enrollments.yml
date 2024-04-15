@@ -16,7 +16,7 @@ spring:
     password: sofia
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
 application:

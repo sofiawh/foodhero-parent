@@ -1,0 +1,27 @@
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+server:
+  port: 9199
+spring:
+  application:
+    name: comment
+  datasource:
+    url: jdbc:postgresql://localhost:5433/comment
+    username: sofia
+    password: sofia
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+application:
+  config:
+    users-url: http://localhost:8222/api/v1/users
+    associations-url: http://localhost:8222/api/v1/associations
+    annonces-url: http://localhost:8222/api/v1/commercants/annonce

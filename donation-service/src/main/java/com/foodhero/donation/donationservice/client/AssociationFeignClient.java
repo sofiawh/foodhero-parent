@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 @FeignClient(name= "association-service", url = "${application.config.associations-url}")
 public interface AssociationFeignClient {
     @GetMapping("/{id}")
-    ResponseEntity<Association> getAssociationById(@PathVariable Long id);
+    ResponseEntity<Association> getAssociationById(@PathVariable /*Long*/String  id);
 
 
 }

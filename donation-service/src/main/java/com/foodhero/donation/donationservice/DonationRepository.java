@@ -7,7 +7,7 @@ import java.util.List;
 
 @Repository
 public interface DonationRepository extends JpaRepository<Donation, Long> {
-    List<Donation> findAllByAssociationId(Long associationId);
-    List<Donation> findAllByUserId(Long userId);
-    List<Donation> findAllByAnnonceId(Long associationId);
+    List<Donation> findAllByAssociationId(/*Long*/String associationId);
+    List<Donation> findAllByUserId(/*Long*/String userId);
+    List<Donation> findAllByAnnonceId(Long annonceId);
 }

@@ -6,6 +6,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.*;
 
+import java.time.LocalDate;
+
 @Entity
 @Getter
 @Setter
@@ -17,12 +19,14 @@ public class Donation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private double montant;
-    private String typeDon;
-    private Long userId;
-    private Long associationId;
+    private double amount;
+   // private String typeDon;
+    private /*Long*/ String userId;
+    private /*Long*/ String associationId;
     private String status;// a faire comme enum
     private Long annonceId;
+    private LocalDate date;
+    private String Pmethod;
 
 
 }

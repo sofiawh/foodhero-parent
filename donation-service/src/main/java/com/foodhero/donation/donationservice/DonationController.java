@@ -33,20 +33,20 @@ public class DonationController {
     @PostMapping
     public ResponseEntity<Donation> donationUser(@RequestBody Donation donation) {
         // Validate user and association existence
-        if (isValidUser(donation.getUserId()) && isValidAssociation(donation.getAssociationId())) {
+      //  if (isValidUser(donation.getUserId()) && isValidAssociation(donation.getAssociationId())) {
             return ResponseEntity.ok(service.saveDonation(donation));
-        }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+      //  }
+     //   return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
 
     @GetMapping("/associations/{associationId}/users")
-    public ResponseEntity<List<Long>> getDonationUsersByAssociationId(@PathVariable Long associationId) {
-        List<Long> donationUserIds = service.findDonationUsersByAssociationId(associationId);
+    public ResponseEntity<List</*Long*/String>> getDonationUsersByAssociationId(@PathVariable /*Long*/String associationId) {
+        List</*Long*/String> donationUserIds = service.findDonationUsersByAssociationId(associationId);
         return ResponseEntity.ok(donationUserIds);
     }
 
     @GetMapping("/users/{userId}/dons")
-    public ResponseEntity<List<Donation>> getDonsByUserId(@PathVariable Long userId) {
+    public ResponseEntity<List<Donation>> getDonsByUserId(@PathVariable /*Long*/ String userId) {
         List<Donation> donations = service.findDonationsByUserId(userId);
         return ResponseEntity.ok(donations);
     }
@@ -57,14 +57,14 @@ public class DonationController {
     }
 
     @GetMapping("/associations/{associationId}/dons")
-    public ResponseEntity<List<Donation>> getDonsByAssociationId(@PathVariable Long associationId) {
+    public ResponseEntity<List<Donation>> getDonsByAssociationId(@PathVariable /*Long*/String associationId) {
         List<Donation> donations = service.findDonationsByAssociationId(associationId);
         return ResponseEntity.ok(donations);
     }
 
     @GetMapping("/users/{userId}/associations")
-    public ResponseEntity<List<Long>> getdonationAssociationsByUserId(@PathVariable Long userId) {
-        List<Long> donationAssociationIds = service.findDonationAssociationsByUserId(userId);
+    public ResponseEntity<List</*Long*/String>> getdonationAssociationsByUserId(@PathVariable /*Long*/ String userId) {
+        List</*Long*/String> donationAssociationIds = service.findDonationAssociationsByUserId(userId);
         return ResponseEntity.ok(donationAssociationIds);
     }
     @GetMapping
@@ -89,7 +89,7 @@ public class DonationController {
         // Met à jour les champs de la donation existante avec les nouvelles valeurs
         existingDonation.setUserId(donation.getUserId());
         existingDonation.setAssociationId(donation.getAssociationId());
-        existingDonation.setMontant(donation.getMontant());
+        existingDonation.setAmount(donation.getAmount());
 
         // Enregistre les modifications dans la base de données
         Donation updatedDonation = service.saveDonation(existingDonation);
@@ -111,16 +111,23 @@ public class DonationController {
 
 
 
-    private boolean isValidUser(Long userId) {
+    private boolean isValidUser(/*Long*/ String userId) {
         ResponseEntity<User> response = userFeignClient.getUserById(userId);
         return response.getStatusCode() == HttpStatus.OK;
     }
 
-    private boolean isValidAssociation(Long associationId) {
+    private boolean isValidAssociation(/*Long*/ String associationId) {
         ResponseEntity<Association> response = associationFeignClient.getAssociationById(associationId);
         return response.getStatusCode() == HttpStatus.OK;
     }
 
+
+
+    @GetMapping("/withFullResp")
+    public ResponseEntity<List<DonationWithAssociationsAndUsersAndAnnonces>> getDonationsWithAssociationsAndUsersAndAnnonces() {
+        List<DonationWithAssociationsAndUsersAndAnnonces> donations = service.findDonationsWithAssociationsAndUsersAndAnnonces();
+        return ResponseEntity.ok(donations);
+    }
     // other methods
 }
 

@@ -36,6 +36,8 @@ public class AnnonceService {
         // Mettez à jour les attributs de l'annonce existante avec les données de l'annonce mise à jour
         existingAnnonce.setTitre(updatedAnnonce.getTitre());
         existingAnnonce.setDescription(updatedAnnonce.getDescription());
+        existingAnnonce.setMessage(updatedAnnonce.getMessage());
+        existingAnnonce.setRatings(updatedAnnonce.getRatings()); // Mettre à jour le rating
 
         return annonceRepository.save(existingAnnonce);
     }
@@ -46,6 +48,28 @@ public class AnnonceService {
         }
         annonceRepository.deleteById(idAnnonce);
     }
+
+    public Annonce updateAnnonceRating(Long idAnnonce, Long newRating) {
+        Annonce existingAnnonce = annonceRepository.findById(idAnnonce)
+                .orElseThrow(() -> new NotFoundException("Annonce non trouvée avec l'ID : " + idAnnonce));
+
+        existingAnnonce.setRatings(newRating);
+        return annonceRepository.save(existingAnnonce);
+    }
+
+    public Annonce addRating(Long idAnnonce, Long rating) {
+        Annonce existingAnnonce = annonceRepository.findById(idAnnonce)
+                .orElseThrow(() -> new NotFoundException("Annonce non trouvée avec l'ID : " + idAnnonce));
+
+        existingAnnonce.setRatings(existingAnnonce.getRatings() + rating);
+        return annonceRepository.save(existingAnnonce);
+    }
+
+//    public Commentaire addProductComment(Commentaire commentaire) {
+//        // Implémentez la logique pour ajouter le commentaire dans votre base de données
+//        // Par exemple : commentaireRepository.save(commentaire);
+//        return commentaire;
+//    }
 
 }
 

@@ -12,5 +12,5 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 public interface UserFeignClient {
     @GetMapping("/{id}")
-    ResponseEntity<User> getUserById(@PathVariable Long id);
+    ResponseEntity<User> getUserById(@PathVariable /*Long*/String id);
 }

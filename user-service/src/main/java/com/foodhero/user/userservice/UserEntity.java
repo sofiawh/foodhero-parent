@@ -18,7 +18,8 @@ public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String nom;
+    private Long idKeyCloak;
+    private String name;
     private String prenom;
     private String email;
     private String motDePasse;

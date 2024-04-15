@@ -18,9 +18,9 @@ import java.util.List;
 public class CommercantEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
+    private /*Long*/String id;
+    private Long idKeyCloak;
     private String nomCommerce;
     private String description;
     private String adresse;

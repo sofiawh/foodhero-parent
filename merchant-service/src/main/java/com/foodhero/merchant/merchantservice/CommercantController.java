@@ -26,6 +26,7 @@ public class CommercantController {
 
     @PostMapping
     public ResponseEntity<CommercantDTO> createCommercant(@RequestBody CommercantDTO commercantDTO) {
+       // commercantDTO.setId("14252");
         CommercantDTO createdCommercant = commercantService.createCommercant(commercantDTO);
         return new ResponseEntity<>(createdCommercant, HttpStatus.CREATED);
     }
@@ -45,6 +46,17 @@ public class CommercantController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+    @GetMapping("/keycloak/{idKeyCloak}")
+    public ResponseEntity<CommercantDTO> getCommercantByIdKeyCloak(@PathVariable Long idKeyCloak) {
+        CommercantDTO commercant = commercantService.getCommercantByIdKeyCloak(idKeyCloak);
+        if (commercant != null) {
+            return new ResponseEntity<>(commercant, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
 
     @GetMapping("/{commercantId}/users")
     public ResponseEntity<List<User>> getCommercantUsers(@PathVariable Long commercantId) {

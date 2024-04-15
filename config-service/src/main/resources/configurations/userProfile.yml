@@ -1,0 +1,30 @@
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+server:
+  port: 8072
+spring:
+  application:
+    name: userProfile
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5433/userProfile
+    username: sofia
+    password: sofia
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+application:
+  config:
+    users-url: http://localhost:8222/api/v1/users
+    commercants-url: http://localhost:8222/api/v1/commercants
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+

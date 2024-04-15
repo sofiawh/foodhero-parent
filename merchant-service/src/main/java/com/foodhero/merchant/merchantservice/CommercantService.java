@@ -21,6 +21,7 @@ public class CommercantService {
     public CommercantDTO createCommercant(CommercantDTO commercantDTO) {
         // Logique pour créer un nouveau commerçant dans la base de données
         CommercantEntity commercantEntity = new CommercantEntity();
+        commercantEntity.setId(commercantDTO.getId());
         commercantEntity.setNomCommerce(commercantDTO.getNomCommerce());
         commercantEntity.setDescription(commercantDTO.getDescription());
         commercantEntity.setAdresse(commercantDTO.getAdresse());
@@ -48,6 +49,20 @@ public class CommercantService {
 
         return convertToDTO(commercantEntity);
     }
+    public CommercantDTO getCommercantByIdKeyCloak(Long idKeyCloak) {
+            // Recherchez le commerçant dans la base de données en fonction de son ID Keycloak
+            CommercantEntity commercantEntity = commercantRepository.findByIdKeyCloak(idKeyCloak);
+
+            // Vérifiez si le commerçant existe
+            if (commercantEntity != null) {
+                // Convertissez l'entité Commercant en DTO CommercantDTO
+                return convertToDTO(commercantEntity);
+            } else {
+                // Si le commerçant n'est pas trouvé, lancez une exception ou retournez null selon votre logique métier
+                throw new NotFoundException("Commerçant non trouvé avec l'ID Keycloak : " + idKeyCloak);
+            }
+        }
+
 
     public CommercantEntity getCommercantWithAnnonces(Long id) {
         return commercantRepository.findById(id).orElse(null);
@@ -80,6 +95,7 @@ public class CommercantService {
     private CommercantDTO convertToDTO(CommercantEntity commercantEntity) {
         CommercantDTO commercantDTO = new CommercantDTO();
         commercantDTO.setId(commercantEntity.getId());
+       // commercantDTO.setIdKeyCloak(commercantEntity.getIdKeyCloak());
         commercantDTO.setNomCommerce(commercantEntity.getNomCommerce());
         commercantDTO.setDescription(commercantEntity.getDescription());
         commercantDTO.setAdresse(commercantEntity.getAdresse());

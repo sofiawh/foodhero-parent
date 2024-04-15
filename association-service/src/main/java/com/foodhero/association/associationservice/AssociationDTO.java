@@ -9,7 +9,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class AssociationDTO {
 
-    private Long id;
+    private /*Long*/ String id;
+    private Long idKeyCloak;
     private String nom;
     private String email;
     private String localisation;

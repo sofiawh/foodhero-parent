@@ -13,13 +13,12 @@ public class AssociationService {
 
     @Autowired
     private AssociationRepository associationRepository;
-//
-//    @Autowired
-//    private UtilisateurRepository utilisateurRepository;
+
 
     public AssociationDTO createAssociation(AssociationDTO associationDTO) {
         // Logique pour créer un nouveau commerçant dans la base de données
         AssociationEntity associationEntity = new AssociationEntity();
+        associationEntity.setId(associationDTO.getId());
         associationEntity.setNom(associationDTO.getNom());
         associationEntity.setEmail(associationDTO.getEmail());
         associationEntity.setLocalisation(associationDTO.getLocalisation());

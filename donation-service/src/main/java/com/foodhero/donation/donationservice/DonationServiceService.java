@@ -1,9 +1,12 @@
 package com.foodhero.donation.donationservice;
 
+import com.foodhero.donation.donationservice.client.AnnonceFeignClient;
 import com.foodhero.donation.donationservice.client.AssociationFeignClient;
 import com.foodhero.donation.donationservice.client.UserFeignClient;
 import com.foodhero.donation.donationservice.exceptions.NotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -17,6 +20,7 @@ public class DonationServiceService {
 
     private final UserFeignClient userFeignClient;
     private final AssociationFeignClient associationFeignClient;
+    private final AnnonceFeignClient annonceFeignClient;
     private final DonationRepository repository;
 
     public Donation saveDonation(Donation donation){
@@ -26,8 +30,8 @@ public class DonationServiceService {
     public List<Donation> findAllDonations(){   return repository.findAll();
     }
 
-    public List<Long> findDonationUsersByAssociationId(Long associationId) {
-        List<Long> donationUserIds = new ArrayList<>();
+    public List</*Long*/String> findDonationUsersByAssociationId(/*Long*/String associationId) {
+        List</*Long*/String> donationUserIds = new ArrayList<>();
         List<Donation> enrollments = repository.findAllByAssociationId(associationId);
 
         for (Donation enrollment : enrollments) {
@@ -37,8 +41,8 @@ public class DonationServiceService {
         return donationUserIds;
     }
 
-    public List<Long> findDonationAssociationsByUserId(Long userId) {
-        List<Long> enrolledCommercantIds = new ArrayList<>();
+    public List</*Long*/String> findDonationAssociationsByUserId(/*Long*/String userId) {
+        List</*Long*/String> enrolledCommercantIds = new ArrayList<>();
         List<Donation> enrollments = repository.findAllByUserId(userId);
 
         for (Donation enrollment : enrollments) {
@@ -56,7 +60,7 @@ public class DonationServiceService {
         repository.delete(donation);
     }
 
-    public List<Donation> findDonationsByUserId(Long userId) {
+    public List<Donation> findDonationsByUserId(/*Long*/String userId) {
         // Récupérer les dons par userID en utilisant la méthode du repository
         List<Donation> donations = repository.findAllByUserId(userId);
 
@@ -70,7 +74,7 @@ public class DonationServiceService {
         return donations;
     }
 
-    public List<Donation> findDonationsByAssociationId(Long associationId) {
+    public List<Donation> findDonationsByAssociationId(/*Long*/String associationId) {
         // Récupérer les dons par associationID en utilisant la méthode du repository
         List<Donation> donations = repository.findAllByAssociationId(associationId);
 
@@ -96,6 +100,41 @@ public class DonationServiceService {
         // Retourner la liste des dons récupérés
         return donations;
     }
+
+    public List<DonationWithAssociationsAndUsersAndAnnonces> findDonationsWithAssociationsAndUsersAndAnnonces() {
+        List<Donation> donations = repository.findAll();
+        List<DonationWithAssociationsAndUsersAndAnnonces> donationsWithInfo = new ArrayList<>();
+
+        for (Donation donation : donations) {
+          //  ResponseEntity<User> userResponse = userFeignClient.getUserById(donation.getUserId());
+            ResponseEntity<Association> associationResponse = associationFeignClient.getAssociationById(donation.getAssociationId());
+            ResponseEntity<Annonce> annonceResponse = annonceFeignClient.getAnnonceById(donation.getAnnonceId());
+
+            if (/*userResponse.getStatusCode() == HttpStatus.OK &&*/
+                    associationResponse.getStatusCode() == HttpStatus.OK &&
+                    annonceResponse.getStatusCode() == HttpStatus.OK) {
+
+//                User user = userResponse.getBody();
+                Association association = associationResponse.getBody();
+                Annonce annonce = annonceResponse.getBody();
+
+                DonationWithAssociationsAndUsersAndAnnonces donationWithInfo = new DonationWithAssociationsAndUsersAndAnnonces();
+                donationWithInfo.setDonation(donation);
+                //donationWithInfo.setUser(user);
+                donationWithInfo.setAssociation(association);
+                donationWithInfo.setAnnonce(annonce);
+
+                donationsWithInfo.add(donationWithInfo);
+            }
+        }
+
+        return donationsWithInfo;
+    }
+
+
+
+
+
 //    public FullSchoolResponse findSchWithStudents(Integer schoolId) {
 //        var school = repository.findById(schoolId)
 //                .orElse(
