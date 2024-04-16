@@ -40,5 +40,19 @@ pipeline {
                 bat 'docker-compose -f docker-compose.yml up -d --build'
             }
         }
+
+        stage('Push image to Hub'){
+            steps{
+                script{
+                      withCredentials([string(credentialsId: 'Sofia1234' , variable: 'dockerhubpwd')]) {
+                          sh 'docker login -u sofiah -p ${dockerhubpwd}'
+                      }
+                          sh 'docker push javatechie/devops-integration'
+                  }
+                }
+            }
+}
+
+
     }
 }

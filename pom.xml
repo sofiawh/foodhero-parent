@@ -18,7 +18,7 @@
 		<java.version>17</java.version>
 	</properties>
 	<modules>
-		<module>auth-service</module>
+<!--		<module>auth-service</module>-->
 		<module>merchant-service</module>
 		<module>user-service</module>
 		<!-- Ajoutez ici les noms des autres modules que vous avez créés -->

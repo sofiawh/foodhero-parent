@@ -43,7 +43,7 @@ services:
       - '9194'
     environment:
       - DISCOVERY_SERVICE_URL=http://foodhero-discovery-service:8761/eureka
-  socialnet-commercant-service:
+  foodhero-commercant-service:
     build: ./merchant-service
     container_name: foodhero-commercant-service
     ports:
