@@ -35,7 +35,7 @@ public class AnnonceControllerTest {
 
     @Test
     public void testCreateAnnonce() throws Exception {
-        MockMultipartFile file = new MockMultipartFile("file", "test.jpg", MediaType.IMAGE_JPEG_VALUE, Files.readAllBytes(Paths.get(System.getProperty("user.home") + "/food/annonces/" + "th.jpeg"/*"path/to/test.jpg"*/)));
+        MockMultipartFile file = new MockMultipartFile("file", "test.jpg", MediaType.IMAGE_JPEG_VALUE, Files.readAllBytes(Paths.get(/*System.getProperty("user.home") + "/food/annonces/" + "th.jpeg"*//*"path/to/test.jpg"*/"C:/Users/HP/food/annonces/th.jpeg")));
         Annonce annonce = new Annonce(); // Créez un objet Annonce à tester
 
         // Définir le comportement attendu lors de l'appel au service
