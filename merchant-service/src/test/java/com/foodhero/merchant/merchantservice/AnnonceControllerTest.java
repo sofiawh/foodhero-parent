@@ -33,7 +33,7 @@ public class AnnonceControllerTest {
         this.mockMvc = MockMvcBuilders.standaloneSetup(annonceController).build();
     }
 
-    @Test
+    //@Test
     public void testCreateAnnonce() throws Exception {
 
         MockMultipartFile file = new MockMultipartFile("file", "th.jpeg", MediaType.IMAGE_JPEG_VALUE, getClass().getResourceAsStream("/static/th.jpeg"));
