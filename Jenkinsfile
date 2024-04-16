@@ -48,7 +48,7 @@ pipeline {
                        {
                           sh 'docker login -u sofiah -p ${dockerhubpwd}'
                       }
-                          sh 'docker push javatechie/devops-integration'
+                          sh 'docker push sofiah/devops-integration'
                   }
                 }
             }
