@@ -24,13 +24,13 @@
 		<!-- Ajoutez ici les noms des autres modules que vous avez créés -->
 		<module>notification-service</module>
 		<module>donation-service</module>
-		<module>comment-service</module>
+<!--		<module>comment-service</module>-->
 		<module>association-service</module>
-		<module>rating-service</module>
-		<module>statistics-service</module>
-		<module>survey-service</module>
+<!--		<module>rating-service</module>-->
+<!--		<module>statistics-service</module>-->
+<!--		<module>survey-service</module>-->
 		<module>enrollment</module>
-		<module>userProfile</module>
+<!--		<module>userProfile</module>-->
 		<module>config-service</module>
 		<module>discovery</module>
 		<module>gateway</module>
